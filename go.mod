@@ -13,7 +13,7 @@ require (
 	github.com/mreiferson/go-options v0.0.0-20190302015348-0c63f026bcd6
 	github.com/nsqio/go-diskqueue v0.0.0-20180306152900-74cfbc9de839
 	github.com/nsqio/go-nsq v1.0.7
+	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/viper v1.3.2
-	golang.org/x/sys v0.0.0-20181221143128-b4a75ba826a6 // indirect
 )
