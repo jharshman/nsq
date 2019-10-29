@@ -1,4 +1,4 @@
-package nsdlookupd
+package nsqlookupd
 
 import (
 	"encoding/json"

@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"github.com/nsqio/nsq/nsqctl/pkg/nsdlookupd"
 	"github.com/nsqio/nsq/nsqctl/pkg/nsqd"
+	"github.com/nsqio/nsq/nsqctl/pkg/nsqlookupd"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"net/http"
@@ -16,14 +16,20 @@ var pauseCmd = &cobra.Command{
 	Short: "Pause a topic or set of topics",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		lookupClient := &nsdlookupd.Client{
+		lookupClient := &nsqlookupd.Client{
 			Url: lookupdHost,
 			Cli: &http.Client{},
 		}
 
 		topicMap := make(map[string][]string)
 		for _, v := range topics {
-			p, _ := lookupClient.GetProducersForTopic(v)
+			p, err := lookupClient.GetProducersForTopic(v)
+			if err != nil {
+				log.Fatalf("getting producers %v", err)
+			}
+			if len(p) == 0 {
+				log.Fatalln("no producers returned for topic")
+			}
 			topicMap[v] = p
 		}
 
